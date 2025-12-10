@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Feed a Stray, Save a Life</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section class="hero">
+  <h1>Feed a Stray, Save a Life</h1>
+  <p>I feed over 15–20 stray dogs and cats every day. Your small contribution helps provide meals and basic care.</p>
+  <p class="sanskrit">“जीवेषु करुणा चापि मैत्री तेषु विधीयताम्।”</p>
+  <p class="quote">“Serving any living being is serving God Himself.”</p>
+</section>
+
+<section class="donate-box">
+  <h2>Donate</h2>
+  <div class="buttons">
+    <button onclick="startUPI(20)">₹20</button>
+    <button onclick="startUPI(40)">₹40</button>
+    <button onclick="startUPI(50)">₹50</button>
+    <button onclick="startUPI(100)">₹100</button>
+  </div>
+
+  <input type="number" id="customAmount" placeholder="Other Amount (min ₹15)">
+  <button class="donate-btn" onclick="customDonate()">Proceed to Donate</button>
+
+  <p class="upi-id">UPI ID: <strong>amankr2929@oksbi</strong></p>
+  <img src="qr.png" alt="UPI QR" class="qr">
+</section>
+
+<section class="progress-section">
+  <h2>Our Feeding Progress</h2>
+
+  <div class="progress-card">
+    <h3>Dogs Fed So Far</h3>
+    <div id="dogsCount" class="big-number">--</div>
+    <div class="progress-bar"><div id="dogBar"></div></div>
+    <p>Progress: <span id="dogPercent">0%</span></p>
+  </div>
+
+  <div class="progress-card">
+    <h3>Cats Fed So Far</h3>
+    <div id="catsCount" class="big-number">--</div>
+    <div class="progress-bar"><div id="catBar"></div></div>
+    <p>Progress: <span id="catPercent">0%</span></p>
+  </div>
+
+  <p class="small-text">Your support helps us feed stray dogs and cats every single day. Track our weekly progress and see how your donation makes an immediate impact.</p>
+</section>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
