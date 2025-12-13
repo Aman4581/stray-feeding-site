@@ -1,104 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Admin Panel — Stray Feeding</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <h2 style="text-align:center;margin-top:18px;">Admin Panel</h2>
-
-  <div class="donate-box" style="max-width:540px;margin:18px auto;">
-    <div id="authArea">
-      <h3>Sign in</h3>
-      <input id="email" type="email" placeholder="Email" style="width:100%;padding:10px;margin:8px 0;">
-      <input id="pwd" type="password" placeholder="Password" style="width:100%;padding:10px;margin:8px 0;">
-      <button class="donate-btn" onclick="signIn()">Sign In</button>
-      <p style="font-size:13px;color:#666;margin-top:8px;">(Use the admin account you created in Firebase Authentication)</p>
-    </div>
-
-    <div id="panel" style="display:none;">
-      <h3>Update Feeding Numbers</h3>
-      <label>Dogs Fed:</label>
-      <input id="dogsInput" type="number" value="0" style="width:100%;padding:8px;margin:6px 0;">
-      <label>Cats Fed:</label>
-      <input id="catsInput" type="number" value="0" style="width:100%;padding:8px;margin:6px 0;">
-      <label>Weekly Dog Target:</label>
-      <input id="dogTargetInput" type="number" value="50" style="width:100%;padding:8px;margin:6px 0;">
-      <label>Weekly Cat Target:</label>
-      <input id="catTargetInput" type="number" value="30" style="width:100%;padding:8px;margin:6px 0;">
-      <button class="donate-btn" onclick="updateData()">Save Data</button>
-      <button style="margin-top:8px;padding:10px;width:100%;" onclick="signOut()">Sign Out</button>
-    </div>
-  </div>
+<title>Admin Panel</title>
+<link rel="stylesheet" href="style.css">
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<script>
-// ====== PASTE SAME FIREBASE CONFIG HERE ======
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+</head>
+<body>
 
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDRSDd57f2WjWOgTt6u7Ulf8dbiBvjT-S4",
-  authDomain: "stray-feeding.firebaseapp.com",
-  databaseURL: "https://stray-feeding-default-rtdb.firebaseio.com",
-  projectId: "stray-feeding",
-  storageBucket: "stray-feeding.firebasestorage.app",
-  messagingSenderId: "797097427576",
-  appId: "1:797097427576:web:bb6f38ed916c0f4f84638d"
-};
+<section class="admin-login" id="loginBox">
+    <h2>Admin Login</h2>
+    <input id="adminPin" type="password" placeholder="Enter PIN">
+    <button onclick="loginAdmin()">Login</button>
+</section>
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);// =============================================
-firebase.initializeApp(firebaseConfig);
-var auth = firebase.auth();
-var db = firebase.database();
+<section id="adminPanel" style="display:none; padding:40px;">
+    <h1>Admin Dashboard</h1>
 
-function signIn(){
-  var e = document.getElementById('email').value;
-  var p = document.getElementById('pwd').value;
-  auth.signInWithEmailAndPassword(e,p).then(function(){
-    document.getElementById('authArea').style.display='none';
-    document.getElementById('panel').style.display='block';
-    loadCurrent();
-  }).catch(function(err){
-    alert("Login failed: "+err.message);
-  });
-}
+    <div class="admin-cards">
 
-function signOut(){
-  auth.signOut().then(function(){
-    document.getElementById('authArea').style.display='block';
-    document.getElementById('panel').style.display='none';
-  });
-}
+        <div class="admin-card">
+            <h3>Update Dogs</h3>
+            <input id="dogsInput" type="number">
+        </div>
 
-function loadCurrent(){
-  db.ref("feedData").once("value").then(function(snap){
-    var d = snap.val() || {};
-    document.getElementById('dogsInput').value = d.dogs || 0;
-    document.getElementById('catsInput').value = d.cats || 0;
-    document.getElementById('dogTargetInput').value = d.dogTarget || 50;
-    document.getElementById('catTargetInput').value = d.catTarget || 30;
-  });
-}
+        <div class="admin-card">
+            <h3>Update Cats</h3>
+            <input id="catsInput" type="number">
+        </div>
 
-function updateData(){
-  var dogs = parseInt(document.getElementById('dogsInput').value)||0;
-  var cats = parseInt(document.getElementById('catsInput').value)||0;
-  var dogTarget = parseInt(document.getElementById('dogTargetInput').value)||50;
-  var catTarget = parseInt(document.getElementById('catTargetInput').value)||30;
+        <div class="admin-card">
+            <h3>Dog Target</h3>
+            <input id="dogTargetInput" type="number">
+        </div>
 
-  db.ref("feedData").set({ dogs: dogs, cats: cats, dogTarget: dogTarget, catTarget: catTarget})
-    .then(function(){ alert("Data updated"); })
-    .catch(function(err){ alert("Error: "+err.message); });
-}
-</script>
+        <div class="admin-card">
+            <h3>Cat Target</h3>
+            <input id="catTargetInput" type="number">
+        </div>
+
+    </div>
+
+    <button class="save-btn" onclick="updateData()">Save</button>
+
+    <h2>Current Feeding Graph</h2>
+    <canvas id="adminChart"></canvas>
+
+</section>
+
+<script src="admin.js"></script>
+
 </body>
 </html>
