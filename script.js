@@ -4,7 +4,7 @@ function setAmount(val) {
   document.getElementById("customAmount").value = val;
 }
 
-function proceedToDonate() {
+function proceedToDonate1() {
   const amount = document.getElementById("customAmount").value;
   const name = document.getElementById("donorName").value || "Aman Kumar";
 
@@ -19,6 +19,36 @@ function proceedToDonate() {
 
   window.location.href = upiUrl;
 }
+// Version 1.0.0.1 - UPI SAFE FLOW
+
+function proceedToDonate() {
+  const amount = document.getElementById("customAmount").value;
+  const name = document.getElementById("donorName").value || "Aman Kumar";
+
+  if (!amount || amount < 15) {
+    alert("Minimum donation is ₹15");
+    return;
+  }
+
+  const upiId = "amankr2929@oksbi";
+
+  // Show clear instruction instead of forcing redirect
+  alert(
+    "Please scan the QR code using GPay / PhonePe / Paytm OR pay directly to UPI ID:\n\n" +
+    upiId +
+    "\n\nAmount: ₹" + amount
+  );
+
+  // OPTIONAL: try UPI link (best effort)
+  const upiUrl =
+    `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
+
+  // Delay so alert is read
+  setTimeout(() => {
+    window.location.href = upiUrl;
+  }, 800);
+}
+
 
 /* Firebase */
 var firebaseConfig = {
