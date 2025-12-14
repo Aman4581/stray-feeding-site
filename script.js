@@ -1,58 +1,62 @@
-// QUICK AMOUNT BUTTON FILLER
-function fillAmount(val) {
-    document.getElementById("customAmount").value = val;
+// Version 1.0.0.0
+
+function setAmount(val) {
+  document.getElementById("customAmount").value = val;
 }
 
-// UPI PAYMENT REDIRECT
-document.getElementById("donateNow").onclick = () => {
-    let name = document.getElementById("donorName").value || "Supporter";
-    let amt = Number(document.getElementById("customAmount").value);
+function proceedToDonate() {
+  const amount = document.getElementById("customAmount").value;
+  const name = document.getElementById("donorName").value || "Aman Kumar";
 
-    if (!amt || amt < 15) {
-        alert("Please enter minimum ₹15");
-        return;
-    }
+  if (!amount || amount < 15) {
+    alert("Minimum donation is ₹15");
+    return;
+  }
 
-    let upiURL = `upi://pay?pa=amankr2929@oksbi&pn=${encodeURIComponent(name)}&am=${amt}&cu=INR`;
-    window.location.href = upiURL;
+  // PERSONAL UPI (no merchant params)
+  const upiUrl =
+    `upi://pay?pa=amankr2929@oksbi&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
 
-    setTimeout(() => {
-        alert("If your UPI app did not open, please scan the QR code shown.");
-    }, 2500);
+  window.location.href = upiUrl;
+}
+
+/* Firebase */
+var firebaseConfig = {
+  apiKey: "AIzaSyDRSDd57f2WjWOgTt6u7Ulf8dbiBvjT-S4",
+  authDomain: "stray-feeding.firebaseapp.com",
+  databaseURL: "https://stray-feeding-default-rtdb.firebaseio.com",
+  projectId: "stray-feeding",
+  storageBucket: "stray-feeding.firebasestorage.app",
+  messagingSenderId: "797097427576",
+  appId: "1:797097427576:web:bb6f38ed916c0f4f84638d"
 };
 
-// FIREBASE LIVE FEEDING PROGRESS
-const firebaseConfig = {
-    apiKey: "AIzaSyDRSDd57F2WjW0gTt6u7UlF8dbiBvjT-S4",
-    authDomain: "stray-feeding.firebaseapp.com",
-    databaseURL: "https://stray-feeding-default-rtdb.firebaseio.com",
-    projectId: "stray-feeding",
-    storageBucket: "stray-feeding.firebasestorage.app",
-    messagingSenderId: "797097427576",
-    appId: "1:797097427576:web:bb6f38ed916c0f4f84638d"
-};
-
-// Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.database();
 
-db.ref("feedData").on("value", snapshot => {
-    let data = snapshot.val();
+db.ref("feedData").on("value", snap => {
+  const d = snap.val();
 
-    let dogs = data.dogs;
-    let cats = data.cats;
-    let dogTarget = data.dogTarget;
-    let catTarget = data.catTarget;
+  document.getElementById("dogsCount").innerText = d.dogs;
+  document.getElementById("catsCount").innerText = d.cats;
 
-    document.getElementById("dogsCount").innerHTML = dogs;
-    document.getElementById("catsCount").innerHTML = cats;
+  const dogPct = Math.min(100, (d.dogs / d.dogTarget) * 100);
+  const catPct = Math.min(100, (d.cats / d.catTarget) * 100);
 
-    let dogPercent = Math.round((dogs / dogTarget) * 100);
-    let catPercent = Math.round((cats / catTarget) * 100);
+  document.getElementById("dogsBar").style.width = dogPct + "%";
+  document.getElementById("catsBar").style.width = catPct + "%";
 
-    document.getElementById("dogsPercent").innerHTML = dogPercent + "%";
-    document.getElementById("catsPercent").innerHTML = catPercent + "%";
-
-    document.getElementById("dogsBar").style.width = dogPercent + "%";
-    document.getElementById("catsBar").style.width = catPercent + "%";
+  // Chart
+  new Chart(document.getElementById("feedingChart"), {
+    type: "bar",
+    data: {
+      labels: ["Dogs", "Cats"],
+      datasets: [{
+        label: "Weekly Progress",
+        data: [d.dogs, d.cats],
+        backgroundColor: ["orange", "dodgerblue"]
+      }]
+    },
+    options: { responsive: true }
+  });
 });

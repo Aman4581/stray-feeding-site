@@ -1,201 +1,296 @@
+/* Version 1.0.0.0 */
+
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f7f7f7;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f2ec;
 }
 
-/* NAVBAR */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 30px;
-    background: white;
-    position: sticky;
-    top: 0;
-    border-bottom: 1px solid #ddd;
-    z-index: 10;
+/* HEADER */
+.header {
+  background: #fff;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.navbar ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: black;
-    font-size: 16px;
-}
-
-.donate-btn {
-    background: #28a745;
-    padding: 6px 14px;
-    color: white !important;
-    border-radius: 6px;
+.header a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #333;
 }
 
 /* HERO */
 .hero {
-    position: relative;
-    text-align: center;
+  position: relative;
+  text-align: center;
 }
 
 .hero-img {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
-    opacity: 0.3;
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  filter: brightness(65%);
+}
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: #28a745;
 }
 
 .hero-text {
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 90%;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
 }
 
-.hero-text h1 {
-    font-size: 40px;
-    font-weight: bold;
+/* DONATION */
+.donate-section {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
 }
 
-.sanskrit {
-    font-size: 20px;
-    font-style: italic;
+.donation-box {
+  background: #fff;
+  padding: 25px;
+  width: 360px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
 }
 
-.quote {
-    font-size: 16px;
-    margin-top: -5px;
+.quick-buttons button {
+  margin: 5px;
+  padding: 10px;
+  width: 70px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-/* DONATION BOX */
-.donate-container {
-    display: flex;
-    justify-content: center;
-    padding: 40px;
-    gap: 30px;
-}
-
-.donate-box {
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    width: 350px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-}
-
-.button-row {
-    display: flex;
-    gap: 10px;
-}
-
-.quick-btn {
-    flex: 1;
-    padding: 8px;
-    background: white;
-    border: 1px solid #aaa;
-    border-radius: 6px;
-}
-
-#customAmount, #donorName {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    font-size: 17px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 6px;
+  font-size: 16px;
 }
 
 /* PROCEED BUTTON */
-.submit-btn {
-    margin-top: 15px;
-    width: 100%;
-    padding: 14px;
-    background: #007bff;
-    color: white;
-    font-size: 18px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
+.proceed-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  margin-top: 15px;
+  cursor: pointer;
 }
 
-.submit-btn:hover {
-    background: #005ec0;
+.proceed-btn:hover {
+  background: #1e7e34;
 }
 
-/* QR CODE */
+/* QR */
 .qr {
-    width: 180px;
-    display: block;
-    margin: auto;
+  width: 200px;
+  display: block;
+  margin: 15px auto;
 }
 
-.upi-id {
-    text-align: center;
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-/* FEEDING PROGRESS */
+/* PROGRESS */
 .progress-section {
-    text-align: center;
-    padding: 40px 20px;
+  text-align: center;
+  padding: 40px;
 }
 
-.progress-card {
-    background: white;
-    width: 320px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.card {
+  background: #fff;
+  padding: 20px;
+  width: 300px;
+  margin: 15px auto;
+  border-radius: 10px;
 }
 
 .bar {
-    width: 100%;
-    background: #ddd;
-    height: 10px;
-    border-radius: 50px;
+  background: #ddd;
+  height: 10px;
+  border-radius: 20px;
 }
 
-#dogsBar, #catsBar {
-    height: 10px;
-    border-radius: 50px;
+#dogsBar {
+  height: 10px;
+  background: orange;
+  width: 0%;
 }
 
-#dogsBar { background: orange; width: 0%; }
-#catsBar { background: dodgerblue; width: 0%; }
+#catsBar {
+  height: 10px;
+  background: dodgerblue;
+  width: 0%;
+}
 
 .support-text {
-    margin-top: 20px;
-    font-size: 17px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+  max-width: 600px;
+  margin: 20px auto;
+  font-size: 17px;
 }
 
 /* FOOTER */
 footer {
-    background: #333;
-    color: white;
-    padding: 30px;
-    text-align: center;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  padding: 30px;
 }
 
-.footer-donate-btn {
-    background: #28a745;
-    padding: 14px 30px;
-    color: white;
-    border: none;
-    font-size: 20px;
-    border-radius: 10px;
-    cursor: pointer;
+.footer-donate {
+  background: #28a745;
+  padding: 18px 44px;
+  font-size: 20px;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
 }
 
-.footer-address {
-    margin-top: 20px;
-    font-size: 14px;
+.footer-text {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+/* ===== IMPACT & INFO SECTIONS : v1.0.0.0 ===== */
+
+.impact-explain,
+.issues-section,
+.response-section {
+  padding: 50px 20px;
+  text-align: center;
+  background: #f8f6f1;
+}
+
+.impact-explain h2,
+.issues-section h2,
+.response-section h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.impact-explain p {
+  font-size: 17px;
+  max-width: 650px;
+  margin: 0 auto 30px;
+}
+
+/* Impact cards */
+.impact-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.impact-card {
+  background: #ffffff;
+  padding: 14px 18px;
+  border-radius: 10px;
+  width: 260px;
+  font-size: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* Issues */
+.issues-section ul,
+.response-section ul {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: auto;
+}
+
+.issues-section li,
+.response-section li {
+  padding: 8px 0;
+  font-size: 16px;
+}
+
+/* Feeding image */
+.green-img {
+  margin-top: 30px;
+  width: 90%;
+  max-width: 700px;
+  border-radius: 14px;
+}
+
+
+.about-section {
+  padding: 50px 20px;
+  text-align: center;
+  background: #f8f6f1;
+}
+
+.about-section h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.about-section p {
+  font-size: 17px;
+  max-width: 700px;
+  margin: auto;
+  line-height: 1.6;
+}
+
+
+
+/* HERO 2 TEXT OVERLAY */
+.hero-2 {
+  height: 420px;
+  position: relative;
+}
+
+.blur-img {
+  filter: blur(3px) brightness(55%);
+}
+
+.hero2-text {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 800px;
+  color: #fff;
+  text-align: center;
+}
+
+.hero2-text h2 {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
+.hero2-text p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.hero2-text ul {
+  list-style: none;
+  padding: 0;
+  margin: 15px 0;
+}
+
+.hero2-text li {
+  padding: 6px 0;
+  font-size: 16px;
+}
+
+.hero2-cta {
+  margin-top: 15px;
+  font-weight: bold;
 }

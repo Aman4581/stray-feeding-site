@@ -1,104 +1,187 @@
+<!-- Version: 1.0.0.0 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feed a Stray, Save a Life</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Feed a Stray, Save a Life</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+  <!-- Chart -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
 
-<!-- ========== NAVBAR ========== -->
-<nav class="navbar">
-    <div class="logo">Feed a Stray, Save a Life</div>
-    <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#issues">Key Issues</a></li>
-        <li><a href="#impact">Our Impact</a></li>
-        <li><a href="#progress">Feeding Program</a></li>
-        <li><a class="donate-btn" href="#donationBox">Donate</a></li>
-        <li><a href="admin.html">Admin</a></li>
-    </ul>
-</nav>
+<header class="header">
+  <div class="logo">Feed a Stray, Save a Life</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#donate">Donate</a>
+    <a href="#progress">Progress</a>
+    <a href="admin.html">Admin</a>
+  </nav>
+</header>
 
-<!-- ========== HERO SECTION ========== -->
+<!-- HERO -->
 <section id="home" class="hero">
-    <img src="hero1.jpg" class="hero-img">
-
-    <div class="hero-text">
-        <h1>Feed a Stray, Save a Life</h1>
-
-        <p>I feed over <b>80–100 stray dogs and cats every day.</b><br>
-        Your small contribution helps provide meals and care for hungry animals who have no one else.</p>
-
-        <p class="sanskrit">“जीवेषु करुणा चापि मैत्री तेषु विधीयताम्।”</p>
-        <p class="quote">“Serving any living being is serving God Himself.”</p>
-    </div>
+  <img src="hero1.jpg" class="hero-img" />
+  <div class="hero-text">
+    <h1>Feed a Stray, Save a Life</h1>
+    <p>I feed <b>over 150 stray dogs and cats daily</b>.</p>
+    <p class="sanskrit">“जीवेषु करुणा चापि मैत्री तेषु विधीयताम्”</p>
+  </div>
 </section>
 
-<!-- ========== DONATION BOX ========== -->
-<section id="donationBox" class="donate-container">
-    <div class="donate-box">
-
-        <h2>Donate</h2>
-
-        <label>Your Name (optional)</label>
-        <input type="text" id="donorName" placeholder="Enter name">
-
-        <div class="button-row">
-            <button class="quick-btn" onclick="fillAmount(20)">₹20</button>
-            <button class="quick-btn" onclick="fillAmount(40)">₹40</button>
-            <button class="quick-btn" onclick="fillAmount(50)">₹50</button>
-            <button class="quick-btn" onclick="fillAmount(100)">₹100</button>
-        </div>
-
-        <label>Other Amount (min ₹15)</label>
-        <input type="number" id="customAmount" placeholder="₹">
-
-        <button id="donateNow" class="submit-btn">Proceed to Donate</button>
-    </div>
-
-    <div class="qr-section">
-        <img src="qr.png" class="qr">
-        <p class="upi-id">UPI ID: <b>amankr2929@oksbi</b></p>
-    </div>
+<section class="about-section">
+  <h2>About Us</h2>
+  <p>
+    This initiative started with one simple goal — no stray animal should sleep hungry.
+    Every day, we feed stray dogs and cats, provide medical help to the injured,
+    and show compassion to lives that cannot ask for help.
+  </p>
 </section>
 
-<!-- ========== FEEDING PROGRESS ========== -->
-<section id="progress" class="progress-section">
-    <h2>Our Feeding Progress</h2>
+<!-- DONATION -->
+<section id="donate" class="donate-section">
+  <div class="donation-box">
 
-    <div class="progress-card">
-        <h3>Dogs Fed So Far</h3>
-        <p id="dogsCount">--</p>
-        <div class="bar"><div id="dogsBar"></div></div>
-        <p class="progress-text">Progress: <span id="dogsPercent">0%</span></p>
+    <h2>Donate</h2>
+
+    <label>Your Name (optional)</label>
+    <input type="text" id="donorName" placeholder="Your name" />
+
+    <div class="quick-buttons">
+      <button onclick="setAmount(20)">₹20</button>
+      <button onclick="setAmount(40)">₹40</button>
+      <button onclick="setAmount(50)">₹50</button>
+      <button onclick="setAmount(100)">₹100</button>
     </div>
 
-    <div class="progress-card">
-        <h3>Cats Fed So Far</h3>
-        <p id="catsCount">--</p>
-        <div class="bar"><div id="catsBar"></div></div>
-        <p class="progress-text">Progress: <span id="catsPercent">0%</span></p>
-    </div>
+    <label>Enter Amount (min ₹15)</label>
+    <input type="number" id="customAmount" placeholder="₹" />
 
-    <p class="support-text">
-        Your support helps us feed stray dogs and cats every single day.  
-        Track our weekly progress and see how your donation makes an immediate impact.
-    </p>
-</section>
-
-<!-- ========== FOOTER ========== -->
-<footer>
-    <button class="footer-donate-btn" onclick="document.getElementById('donationBox').scrollIntoView({behavior:'smooth'})">
-        Donate Now
+    <button class="proceed-btn" onclick="proceedToDonate()">
+      Proceed to Donate
     </button>
 
-    <p class="footer-address">
-        Address: Dr. Gangadhar S Badhe Marg, Chunabhatti, Mumbai - 400022 <br>
-        © 2025 Feed a Stray, Save a Life
+    <img src="qr.png" class="qr" />
+    <p class="upi">UPI ID: <b>amankr2929@oksbi</b></p>
+
+  </div>
+</section>
+
+<!-- PROGRESS -->
+<section id="progress" class="progress-section">
+  <h2>Feeding Progress</h2>
+
+  <div class="card">
+    <h3>Dogs Fed</h3>
+    <p id="dogsCount">--</p>
+    <div class="bar"><div id="dogsBar"></div></div>
+  </div>
+
+  <div class="card">
+    <h3>Cats Fed</h3>
+    <p id="catsCount">--</p>
+    <div class="bar"><div id="catsBar"></div></div>
+  </div>
+
+  <canvas id="feedingChart"></canvas>
+
+  <p class="support-text">
+    Your support helps us feed stray dogs and cats every single day.
+    Track our weekly progress and see how your donation makes an immediate impact.
+  </p>
+</section>
+<!-- WHAT DONATION DOES -->
+<section class="impact-explain">
+  <h2>What Your Donation Does</h2>
+  <p>
+    A small amount that may not buy much for us can save a hungry animal’s life.
+  </p>
+
+  <div class="impact-list">
+    <div class="impact-card">🍖 Feeds a dog a complete meal</div>
+    <div class="impact-card">🥛 Provides milk & rice for cats</div>
+    <div class="impact-card">💊 Helps treat sick & injured animals</div>
+    <div class="impact-card">🐾 Supports emergency rescues</div>
+    <div class="impact-card">❤️ Gives hope to the helpless</div>
+  </div>
+</section>
+
+<!-- KEY ISSUES -->
+<section id="issues" class="issues-section">
+  <h2>Key Issues</h2>
+  <ul>
+    <li>Animal homelessness is rising.</li>
+    <li>Lack of medical care.</li>
+    <li>Road accidents.</li>
+    <li>Abandoned pets.</li>
+    <li>Food scarcity.</li>
+    <li>Cruelty & abuse.</li>
+  </ul>
+</section>
+
+<!-- OUR RESPONSE -->
+<section id="program" class="response-section">
+  <h2>Our Feeding Program</h2>
+
+  <ul>
+    <li>Feeding over 150 animals daily.</li>
+    <li>Milk, rice & dog food provided.</li>
+    <li>Helping sick or injured animals.</li>
+    <li>Emergency feeding efforts.</li>
+    <li>Promoting compassion.</li>
+  </ul>
+
+</section>
+
+<!-- HERO 2 DONATION IMPACT -->
+<section class="hero hero-2">
+  <img src="hero2.jpg" class="hero-img blur-img">
+
+  <div class="hero-text hero2-text">
+    <h2>What Would Your Donation Do?</h2>
+
+    <p>
+      A thousand rupees does not even buy us the basic luxuries of life these days…
+      but do you know what it can do?
     </p>
+
+    <ul>
+      <li>Help transport an animal to its forever home</li>
+      <li>Feed a couple of hungry animals</li>
+      <li>Vaccinate a young animal against deadly diseases</li>
+      <li>Buy medicines that can make the difference between living and dying</li>
+      <li><b>Save a life</b></li>
+    </ul>
+
+    <p class="hero2-cta">
+      So what are you waiting for?<br>
+      Do your good deed for the day.<br>
+      Donate some money and join our cause!
+    </p>
+  </div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer>
+  <button class="footer-donate"
+    onclick="document.getElementById('donate').scrollIntoView({behavior:'smooth'})">
+    Donate Now
+  </button>
+
+  <p class="footer-text">
+    Address: Dr Gangadhar S Badhe Marg, Chunabhatti, Mumbai - 400022<br />
+    © 2025 Feed a Stray, Save a Life
+  </p>
 </footer>
 
 <script src="script.js"></script>
