@@ -294,3 +294,50 @@ footer {
   margin-top: 15px;
   font-weight: bold;
 }
+
+
+
+/* v1.0.1.0 Donation Confirmation */
+
+.donation-confirm, .donor-wall {
+  background: #f8f6f1;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.donation-confirm input {
+  display: block;
+  margin: 10px auto;
+  padding: 10px;
+  width: 260px;
+  font-size: 16px;
+}
+
+.donation-confirm button {
+  background: #28a745;
+  color: #fff;
+  padding: 12px 26px;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#confirmMsg {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.donor-wall ul {
+  list-style: none;
+  padding: 0;
+}
+
+.donor-wall li {
+  background: #fff;
+  margin: 8px auto;
+  padding: 12px;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}

@@ -49,6 +49,34 @@ function proceedToDonate() {
   }, 800);
 }
 
+// v1.0.1.0 Simple confirmation only (no storage)
+
+// v1.0.1.0 – Thank-you message with donor name (no storage)
+
+function submitDonationDetails() {
+  const name = document.getElementById("confName").value;
+  const amount = document.getElementById("confAmount").value;
+  const utr = document.getElementById("confUTR").value;
+
+  if (!name || !amount || !utr) {
+    alert("Please fill all details");
+    return;
+  }
+
+  document.getElementById("confirmMsg").innerHTML =
+    `✅ <b>Thank you ${name} for your donation.</b><br>
+     Your donation will be verified by our team. Thank you.<br> 
+Once verified, your name will appear in our <b>Recent Supporters ❤️</b>`;
+
+  // Clear inputs after submit
+  document.getElementById("confName").value = "";
+  document.getElementById("confAmount").value = "";
+  document.getElementById("confUTR").value = "";
+}
+
+
+
+
 
 /* Firebase */
 var firebaseConfig = {
